@@ -92,6 +92,8 @@ curl -X GET localhost:3000/learners
 
 Using past experience, log on to AWS and create an EC2 instance
 
+For instance type, the free tier will be absolutely fine for this exercise.
+
 As an extra challenge, you could try creating the AWS instance using the AWS CLI
 
 Choose the Ubuntu AMI (we'll continue with instructions assuming you are running Ubuntu)
