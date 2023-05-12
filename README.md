@@ -217,9 +217,9 @@ Server Running on PORT 3000
 
 Whilst the app is running on your terminal, open up the AWS console in the browser and navigate to the EC2 section.
 
-Click on your EC2 instance to the the **Instance summary**
+Click on your EC2 instance and you should see the **Instance summary**
 
-You should see a section called **Public IPv4 DNS** and it will have a value similar (but not exactly) to the following:
+Within the instance summary, you should see a section called **Public IPv4 DNS** and it will have a value similar (but not exactly) to the following:
 
 ```
 ec2-18-170-107-81.eu-west-2.compute.amazonaws.com
