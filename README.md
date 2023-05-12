@@ -277,7 +277,7 @@ If you test your API from cURL or the browser you should find that it still work
 
 ### 11. Setting up the second server
 
-We're going to create a carbon copy of the first server so that we can load balancer between two instances.
+We're going to create a carbon copy of the first server so that we can load balance between two instances.
 
 Follow steps 4 to 10 again to make a second instance. You can give your next instance a name such as **api-server-002**
 
