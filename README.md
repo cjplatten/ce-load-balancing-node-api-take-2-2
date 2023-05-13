@@ -112,6 +112,8 @@ Under **Inbound rules** add three rules
 | -----------|:----------:| -------------:|----------------------------:|
 | Custom TCP | 3000       | Anywhere IPv4 | API server inbound IPv4     |
 | Custom TCP | 3000       | Anywhere IPv6 | API server inbound IPv6     |
+| HTTP       | 80         | Anywhere IPv4 | API server inbound IPv4     |
+| HTTP       | 80         | Anywhere IPv6 | API server inbound IPv6     |
 | SSH        | 22         | My IP         | SSH access from my computer |
 
 
@@ -126,7 +128,7 @@ Choose the Ubuntu AMI (we'll continue with instructions assuming you are running
 
 For instance type, the free tier will be absolutely fine for this exercise.
 
-Choose **existing security group** and select your previous created security group
+Choose **existing security group** and select your previously created security group
 
 Choose an existing **key/pair** if you still have the key available or if not create a new key pair and called it a new name such as **learners-api-keypair**
 
@@ -281,6 +283,91 @@ We're going to create a carbon copy of the first server so that we can load bala
 
 Follow steps 4 to 10 again to make a second instance. You can give your next instance a name such as **api-server-002**
 
+### 12. Target group
+
+Now you have two servers running the API you can start work on laod balancing between them.
+
+In order to load balance we need to identify the two servers in a form of group. AWS does this through a service service called [Target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html).
+
+Under the EC2 section of the console you will see **Target groups**, navigate to that section and create a new Target Grouo
+
+Make sure **Instances** is selected for the **Target type**
+
+Give the target group a name that identifies it's purpose
+
+For the **Protocol** and **Port** make sure `HTTP` is selected and the port is `3000`
+
+The **Protocol version** can be left as **HTTP1**
+
+For **Health checks**, make sure that the protocol is **HTTP** and the **Health check path** should be `/health-check`
+
+Register your EC2 instances as targets for the Target group
+
+### 13. Load balancer setup
+
+Next and final section is to create the load balancer and load balance between our instances (as grouped by the target group)
+
+Go in to **Load balancers** and create an **Application Load Balancer**
+
+Give your load balancer a name
+
+Make sure that `Internet-facing` is selected for the **Scheme** and that  `IPv4` is selected for the **IP address type**
+
+Pick at least two subnets from the `Default VPC` under the **Mappings** section
+
+For **Security groups** make sure to pick your previously created security group (this will ensure port 80 is open)
+
+The **Listener** section should be configured to use HTTP, port 80 and the **Default action** should be to forward to the target group you created.
+
+Go ahead and create your load balancer
+
+### 14. Time for testing
+
+Once your load balancer is created, select it from the list and you should see a section called **DNS Name**
+
+Copy the URL that it shows and open that up in your browser or you can test with curl such as (your URL will be different to ones shown):
+
+```
+curl -X GET api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com
+```
+
+You can try another end point such as the `/learners`
+
+```
+curl -X GET api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners
+```
+
+Maybe try to add a few learners
+
+```
+curl -X POST api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners \
+   -H 'Content-Type: application/json' \
+   -d '{"firstName":"John Doe","class":"Cloud Engineering"}'
+
+curl -X POST api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners \
+   -H 'Content-Type: application/json' \
+   -d '{"firstName":"Susie Smith","class":"Cloud Engineering"}'
+
+curl -X POST api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners \
+   -H 'Content-Type: application/json' \
+   -d '{"firstName":"Anika Agarwal","class":"Cloud Engineering"}'
+```
+
+Now try getting the learners again....
+
+```
+curl -X GET api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners
+```
+
+🤔 You might find that you don't get all your learners when you make a request to get the learners. Don't worry that is a flaw in how the code is designed. There's a question for you to answer about it later 😉
+
+🎉 🥳 Time to celebrate!! You've successfully configured a load balancer on AWS to distribute traffic between instances!!!
+
+Cloud engineering jobs here we come!!
+
+Now give yourself a pat on the back, have a relax and when ready work through the submission process below before you tear things down.
+
+
 ## Submission process
 
 1. Fork and clone this repository
@@ -293,7 +380,8 @@ Follow steps 4 to 10 again to make a second instance. You can give your next ins
     * When setting up the ALB you had to specify a health check endpoint - why is that?
     * Currently the application listens on port 3000, this isn't a standard HTTP port - what two ports would be better to use?
     * When the API is deployed behind a load balancer, if you add multiple learners and then re-try **GET**ting the learners, sometimes it shows the learners you have added other times it doesn't. Why is that?
-    * If you used the AWS CLI to undertake the AWS actions, include a **AWS Commands** section in your SOLUTION.md that outlines the commands you used
+    * Which bits of the setup do you think you could automate and why?
+    * If you used the AWS CLI to undertake the AWS actions, include a section called **AWS Commands** in your SOLUTION.md that outlines the commands you used
     * Add an image to the repository that shows your browser hitting the API and listing learners. Link that image within your SOLUTION.md markdown document
 
 4. Share your GitHub link
@@ -302,5 +390,13 @@ Follow steps 4 to 10 again to make a second instance. You can give your next ins
 
 
 ## Tearing things down
+
+In order to remove the infrastructure we have created, follow these steps in order
+
+* Navigate to Load Balancers and delete the load balancer
+
+* Navigate to Target groups and delete the target group
+
+* Navigate to the EC2 section and terminate your two EC2 instances
 
 ## Further reading
