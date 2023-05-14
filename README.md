@@ -90,9 +90,7 @@ curl -X GET localhost:3000/learners
 
 ### 3. Setup security group
 
-🗒️ Note: As an extra challenge try to complete the AWS steps using the AWS CLI
-
-Next we all going to configure a [security group](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
+Next you are going to configure a [security group](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
 
 AWS security groups act as firewall rules and either block (by default) or allow traffic into the server. By default they will block all inbound traffic and allow all outbound traffic.
 
@@ -367,6 +365,10 @@ Cloud engineering jobs here we come!!
 
 Now give yourself a pat on the back, have a relax and when ready work through the submission process below before you tear things down.
 
+## Extension
+
+Try the above exercises using the AWS CLI to provision the various required aspects
+
 
 ## Submission process
 
@@ -378,11 +380,14 @@ Now give yourself a pat on the back, have a relax and when ready work through th
     * What endpoints and what [request methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) does the API currently support?
     * Why do you think we use the port **3000** within the security group setup?
     * When setting up the ALB you had to specify a health check endpoint - why is that?
+    * What is a load balancer and why might you use one?
+    * Explain, in your own words, what security groups are?
     * Currently the application listens on port 3000, this isn't a standard HTTP port - what two ports would be better to use?
     * When the API is deployed behind a load balancer, if you add multiple learners and then re-try **GET**ting the learners, sometimes it shows the learners you have added other times it doesn't. Why is that?
     * Which bits of the setup do you think you could automate and why?
-    * If you used the AWS CLI to undertake the AWS actions, include a section called **AWS Commands** in your SOLUTION.md that outlines the commands you used
     * Add an image to the repository that shows your browser hitting the API and listing learners. Link that image within your SOLUTION.md markdown document
+    * If you completed the extension exercise and used the AWS CLI to undertake the AWS actions, include a section called **AWS Commands** in your SOLUTION.md that outlines the commands you used
+    
 
 4. Share your GitHub link
 
