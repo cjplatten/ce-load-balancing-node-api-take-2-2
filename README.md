@@ -104,7 +104,7 @@ Give the security group a description of **Security group for learners API serve
 
 Place it within the **Default VPC**
 
-Under **Inbound rules** add three rules
+Under **Inbound rules** add five rules
 
 | Type       | Port range | Source        | Description                 |
 | -----------|:----------:| -------------:|----------------------------:|
