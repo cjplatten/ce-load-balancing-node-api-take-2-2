@@ -287,7 +287,7 @@ Now you have two servers running the API you can start work on laod balancing be
 
 In order to load balance we need to identify the two servers in a form of group. AWS does this through a service service called [Target groups](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html).
 
-Under the EC2 section of the console you will see **Target groups**, navigate to that section and create a new Target Grouo
+Under the EC2 section of the console you will see **Target groups**, navigate to that section and create a new Target Group
 
 Make sure **Instances** is selected for the **Target type**
 
