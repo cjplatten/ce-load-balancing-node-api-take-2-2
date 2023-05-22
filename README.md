@@ -319,7 +319,7 @@ The **Listener** section should be configured to use HTTP, port 80 and the **Def
 
 Go ahead and create your load balancer
 
-### 14. Time for testing
+### 14. Time for testing
 
 Once your load balancer is created, select it from the list and you should see a section called **DNS Name**
 
