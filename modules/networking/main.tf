@@ -50,7 +50,7 @@ resource "aws_subnet" "private" {
 }
 
 ######
-## Routes
+## Public Routes
 ######
 
 resource "aws_route_table" "public" {
@@ -76,4 +76,11 @@ resource "aws_route" "public_internet_gateway" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.igw.id
 }
+
+
+######
+## The next steps would be to configure the NAT gateway and
+## private routes but we'll intentionally leave this off to 
+## avoid any unrequired costs
+######
 
