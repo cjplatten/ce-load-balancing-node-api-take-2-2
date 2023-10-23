@@ -17,8 +17,14 @@ module "vpc" {
   azs = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
 
   public_subnet_suffix = "public"
-  public_subnets       = ["10.0.0.0/20", "10.0.16.0/20", "10.0.32.0/20"]
-  private_subnets      = ["10.0.96.0/20", "10.0.112.0/20", "10.0.128.0/20"]
+  public_subnets       = var.public_subnets
+  private_subnets      = var.private_subnets
+  create_igw           = true
 
-  create_igw = true
+  # NAT Gateway setup really just to save any costs
+  # so the config below will only make one single
+  # NAT gateway and all private subnets will have routes through it
+  enable_nat_gateway     = true
+  single_nat_gateway     = true
+  one_nat_gateway_per_az = false
 }
