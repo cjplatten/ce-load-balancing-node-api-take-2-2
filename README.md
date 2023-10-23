@@ -51,6 +51,10 @@ Update your terraform code so that it creates a security group that has the rule
 | SSH        | 22         | My IP         | SSH access from my computer |
 
 
+Once you are happy with the code you have written for your security group, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
+
+Log in to the AWS console and make sure that your security group was created and is populated with the correct rules before moving on.
+
 
 ### 4. Provision EC2 instance
 
