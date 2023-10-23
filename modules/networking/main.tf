@@ -24,6 +24,7 @@ resource "aws_internet_gateway" "igw" {
 ######
 ### Subnet definitions
 ######
+
 resource "aws_subnet" "public" {
   count             = length(var.public_subnets)
   vpc_id            = aws_vpc.main.id
@@ -51,7 +52,6 @@ resource "aws_subnet" "private" {
 ######
 ## Routes
 ######
-
 
 resource "aws_route_table" "public" {
 
