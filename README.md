@@ -1,10 +1,22 @@
 # Load balancing
 
-In this exercise you will manually deploy a Node [Express API](https://expressjs.com/) to multiple EC2 servers
+Imagine you have deployed an application - it is currently running on one EC2 instance. As per [Murphy's Law](https://en.wikipedia.org/wiki/Murphy%27s_law) we know that something ~~might~~ will go wrong at some point. Running an application where there is only one of them is great for costs but maybe not say great for reliability because you have a [SPOF](https://en.wikipedia.org/wiki/Single_point_of_failure)
 
-Once deployed (and verified to be working) you will then move on to load balancing between them using an [AWS Application Load Balancer (ALB)](https://aws.amazon.com/elasticloadbalancing/)
+One tactic a cloud engineer might employ to combat this type of risk is [Load Balancing](https://aws.amazon.com/what-is/load-balancing/).
 
-Let's get started 🥳
+## Scenario
+
+Your task is to deploy a new Node API to two separate EC2 instances and load balance traffic between them.
+
+You will make use of AWS Load Balancing along with your new found Terraform skills to create the required infrastructure.
+
+You can view the code for API within the [app](./app/) directory where you will find:
+
+* [index.js](./app/src/index.js) - This file contains the Javascript for the API. 
+
+* [package.json](./app/package.json) - The file contains the dependencies for the application and the scripts for starting the API.
+
+🗒️ **NOTE:** As part of this exercise you are safe to assume that the code has been tested and fully works so you do not need to edit any of the code within the app.
 
 ## Instructions
 
