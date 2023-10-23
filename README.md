@@ -34,9 +34,9 @@ Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
 
 ## 2. Security groups
 
-If you explore the [security](./modules/security/) module you will see that it is currently blank. 
+If you explore the [security](./modules/security/) module you will see that the files are there but they have been left empty.
 
-The structure is there for the module but you will need to populate it with the correct confguration.
+It is your job to populate this module with the correct infrastructure code.
 
 Update your terraform code so that it creates a security group that has the rules as outlined in the table below.
 
