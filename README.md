@@ -20,103 +20,27 @@ You can view the code for API within the [app](./app/) directory where you will 
 
 ## Instructions
 
-### 1. Explore the code files
+## 1. Applying the current infrastructure
 
-The code for the API can be found within the [app](./app) directory. Firstly have a look over the code files
+Explore the existing terraform files within this repository to familiarise yourself with the structure.
 
-[index.js](./app/src/index.js) - This file contains the Javascript for the API. 
+You will see that there is already existing code to create a brand new VPC, associated subnets and routing.
 
-[package.json](./app/package.json) - The file contains the dependencies for the application and the scripts for starting the API.
-
-### 2. Testing locally
-
-Before you deploy this API up to the cloud, let us get used to testing this API locally
-
-If you've haven't got node installed on your computer then you'll need to install node. One way of doing this is to use [Node Version Manager](https://github.com/nvm-sh/nvm)
-
-Once node is installed you should be able to run the following command to check your node version.
+Apply this infrastructure to your AWS account, once it has successfully applied you should see Terraform report the following success message
 
 ```
-node --version
+Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
 ```
 
-For starting the application navigate into the app directory and run:
+## 2. Security groups
 
-```
-npm install
-```
+If you explore the [security](./modules/security/) module you will see that it is currently blank. 
 
-Followed by 
+The structure is there for the module but you will need to populate it with the correct confguration.
 
-```
-npm start
-```
+Update your terraform code so that it creates a security group that has the rules as outlined in the table below.
 
-That will start the application. 
-
-Then let's practice some more command line and test it with the curl command. Try the following:
-
-```
-curl -X GET localhost:3000/
-```
-
-You should see something like:
-
-```
-curl -X GET localhost:3000/
-
-{"message":"Hello cloud engineering crew"}% 
-```
-
-Now lets try getting a list of learners, try:
-
-```
-curl -X GET localhost:3000/learners
-```
-
-and you should see
-
-```
-curl -X GET localhost:3000/learners
-
-[]
-```
-
-Now instead of doing a `GET` request, let's do a `POST` request and save a learner. Try the following
-
-```
-curl -X POST localhost:3000/learners \
-   -H 'Content-Type: application/json' \
-   -d '{"firstName":"Jane Doe","class":"Cloud Engineering"}'
-```
-
-Once the POST request has completed, try getting the learners again and you should see something similar to this:
-
-```
-curl -X GET localhost:3000/learners   
-
-[{"firstName":"Jane Doe","class":"Cloud Engineering"}]
-```
-
-🤩 Nice so now you know what the experience should be like when you deploy this application.
-
-### 3. Setup security group
-
-Next you are going to configure a [security group](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html)
-
-AWS security groups act as firewall rules and either block (by default) or allow traffic into the server. By default they will block all inbound traffic and allow all outbound traffic.
-
-Navigate to the **EC2** section of AWS and go into **Security Groups**
-
-Once there you might see a number of generated security groups, click **Create security group**
-
-Call the security group **learners-api-sg**
-
-Give the security group a description of **Security group for learners API servers**
-
-Place it within the **Default VPC**
-
-Under **Inbound rules** add five rules
+🗒️ **NOTE:** Where the table mentions **My IP** it means the IP address of the computer you are using.
 
 | Type       | Port range | Source        | Description                 |
 | -----------|:----------:| -------------:|----------------------------:|
