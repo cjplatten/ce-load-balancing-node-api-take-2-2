@@ -38,9 +38,13 @@ If you explore the [security](./modules/security/) module you will see that the 
 
 It is your job to populate this module with the correct infrastructure code.
 
-Update your terraform code so that it creates a security group that has the rules as outlined in the table below.
+Update your terraform code so that it creates a security group that has the rules as outlined in the table below. 
 
-🗒️ **NOTE:** Where the table mentions **My IP** it means the IP address of the computer you are using.
+The security group should also be associated with the VPC that Terraform has created.
+
+**💡 HINT:** You will need to research how to pass variables between Terraform modules in order to make use of the VPC ID from the **networking** module.
+
+**🗒️ NOTE:** Where the table mentions **My IP** it means the IP address of the computer you are using.
 
 | Type       | Port range | Source        | Description                 |
 | -----------|:----------:| -------------:|----------------------------:|
@@ -54,6 +58,23 @@ Update your terraform code so that it creates a security group that has the rule
 Once you are happy with the code you have written for your security group, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
 
 Log in to the AWS console and make sure that your security group was created and is populated with the correct rules before moving on.
+
+## 3. Application servers
+
+In this step you will create two application servers in the form of EC2 instances.
+
+Essentially you will provision two EC2 instances that you can later connect to and install the API on to.
+
+Put your terraform code within the [app_servers](./modules/app_servers/) directory. Your code should:
+
+* Provision two EC2 instances
+* Use the previously created security group
+* Place that instance within the VPC that you created with Terraform
+* Be associated with the **key pair** you created earlier in programme
+* Have the name `app-server-001` and `app-server-002` respectively
+* Use the **Ubuntu Server 22.04 AMI ID** (ami-0505148b3591e4c07)
+
+**🗒️ NOTE:** If you have lost the key pair and need to make a new one then you can use the [AWS console to make a new key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) and reference that within your terraform code.
 
 
 ### 4. Provision EC2 instance
