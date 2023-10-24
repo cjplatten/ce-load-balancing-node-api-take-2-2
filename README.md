@@ -90,6 +90,8 @@ Put your terraform code within the [app_servers](./modules/app_servers/) directo
 
 **🗒️ NOTE:** If you have lost the key pair and need to make a new one then you can use the [AWS console to make a new key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) and reference that within your terraform code.
 
+Once you are happy with the code you have written for your instances, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
+
 Log in to the AWS console to make sure you can see your two EC2 instances and check that you can SSH into them before moving on.
 
 
@@ -143,7 +145,7 @@ http://ec2-18-170-107-81.eu-west-2.compute.amazonaws.com:3000/
 
 🎉 🥳 Ok...so far so good....we can test the API and we have got it working!!
 
-### 5. Target group
+## 5. Target group
 
 Now you have two servers running the API you can start work on load balancing between them.
 
@@ -165,29 +167,40 @@ Once you have created the target group your next step is to register those insta
 
 Use the instances you created within the [app_servers](./modules/app_servers) module and attach them to the target group.
 
-### 6. Load balancer setup
+Once you are happy with the code you have written for your target group, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
+
+## 6. Load balancer setup
 
 Amazing work getting this far!!! Seriously well done! 🎉
 
-Next and final section is to create the load balancer and load balance between your instances (as grouped by the target group)
+Next and final section is to create the load balancer and load balance between your instances (as grouped by the target group). You will use Terraform to create an **Application Load Balancer**
 
-Go in to **Load balancers** and create an **Application Load Balancer**
+* [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb)
+* [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener)
 
-Give your load balancer a name
+Your load balancer should have the following properties:
 
-Make sure that `Internet-facing` is selected for the **Scheme** and that  `IPv4` is selected for the **IP address type**
+* Internet-facing not internal
+* Of type **application** for the **load_balancer_type**
+* Reside in the public subnets created within the [networking](./modules/networking/) module
+* Use the security group created within the [security](./modules/security/) module
 
-Pick at least two subnets from the `Default VPC` under the **Mappings** section
+Once your load balancer is there you can then configure the listener settings for the load balancer. This essentially tells your load balancer where to send the traffic for the application to
 
-For **Security groups** make sure to pick your previously created security group (this will ensure port 80 is open)
+The listener should be setup with the following properties:
 
-The **Listener** section should be configured to use HTTP, port 80 and the **Default action** should be to forward to the target group you created.
+* Use HTTP
+* Use port 80
+* Set up using **Forward action** as the **default action** and the target should be the previously created target group
+* You won't need SSL policy or certificates because it doesn't use HTTPS
 
-Go ahead and create your load balancer
+Once you are happy with the code you have written for your load balancer setup, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
 
-### 7. Time for testing
+## 7. Time for testing
 
-Once your load balancer is created, select it from the list and you should see a section called **DNS Name**
+Once your load balancer is created, on your browser, open up the AWS console and through to the Load Balancers section.
+
+Select your load balancer from the list and you should see a section called **DNS Name**
 
 Copy the URL that it shows and open that up in your browser or you can test with curl such as (your URL will be different to ones shown):
 
