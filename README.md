@@ -87,7 +87,7 @@ Put your terraform code within the [app_servers](./modules/app_servers/) directo
 * Use the previously created security group
 * Place that instance within the VPC that you created with Terraform
 * Be associated with the **key pair** you created earlier in programme
-* Have the name `app-server-001` and `app-server-002` respectively
+* Have the name `app_server_001` and `app_server_002` respectively
 * Use the **Ubuntu Server 22.04 AMI ID** (ami-0505148b3591e4c07)
 
 **🗒️ NOTE:** If you have lost the key pair and need to make a new one then you can use the [AWS console to make a new key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) and reference that within your terraform code.
