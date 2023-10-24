@@ -22,58 +22,21 @@ You can view the code for API within the [app](./app/) directory where you will 
 
 ## 1. Applying the current infrastructure
 
-Make sure to commit and push your code after each step in these instructions.
-
 Explore the existing terraform files within this repository to familiarise yourself with the structure.
 
-You will see that there is already existing code to create a brand new VPC, associated subnets and routing.
+You will see that there is already existing code to create a brand new VPC, associated subnets, routing and some security groups for the application.
 
 Apply this infrastructure to your AWS account, once it has successfully applied you should see Terraform report the following success message
 
 ```
-Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 21 added, 0 changed, 0 destroyed.
 ```
 
-## 2. Security groups
+Have a look over the Terraform code before moving on. 
 
-If you explore the [security](./modules/security/) module you will see that the files are there but they have been left empty.
+## 2. Application servers
 
-It is your job to populate this module with the correct infrastructure code.
-
-Update your terraform code so that it creates a security group that has the rules as outlined in the table below. 
-
-- [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group)
-- [vpc_security_group_ingress_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule)
-- [vpc_security_group_egress_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_egress_rule)
-
-The security group should also be associated with the VPC that Terraform has created.
-
-**💡 HINT:** You will need to research how to pass variables between Terraform modules in order to make use of the VPC ID from the **networking** module.
-
-**🗒️ NOTE:** Where the table mentions **My IP** it means the IP address of the computer you are using.
-
-**Inbound rules**
-
-| Type       | Port range | Source        | Description                 |
-| -----------|:----------:| -------------:|----------------------------:|
-| Custom TCP | 3000       | Anywhere IPv4 | API server inbound IPv4     |
-| Custom TCP | 3000       | Anywhere IPv6 | API server inbound IPv6     |
-| HTTP       | 80         | Anywhere IPv4 | API server inbound IPv4     |
-| HTTP       | 80         | Anywhere IPv6 | API server inbound IPv6     |
-| SSH        | 22         | My IP         | SSH access from my computer |
-
-**Outbound rules**
-
-| Type       | Port range | Source        | Description                 |
-| -----------|:----------:| -------------:|----------------------------:|
-| All traffic| All ports  | Anywhere IPv4 | API server outbound IPv4    |
-| All traffic| All ports  | Anywhere IPv6 | API server outbound IPv6    |
-
-Once you are happy with the code you have written for your security group, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
-
-Log in to the AWS console and make sure that your security group was created and is populated with the correct rules before moving on.
-
-## 3. Application servers
+Make sure to commit and push your code after each step in these instructions.
 
 In this step you will create two application servers in the form of EC2 instances.
 
@@ -84,11 +47,13 @@ You will provision two EC2 instances that you can later connect to and install t
 Put your terraform code within the [app_servers](./modules/app_servers/) directory. Your code should:
 
 * Provision two EC2 instances
+* They should be **t2.micro** in size
 * Use the previously created security group
 * Place that instance within the VPC that you created with Terraform
 * Be associated with the **key pair** you created earlier in programme
 * Have the name `app_server_001` and `app_server_002` respectively
 * Use the **Ubuntu Server 22.04 AMI ID** (ami-0505148b3591e4c07)
+* The instance should be given a public IP address
 
 **🗒️ NOTE:** If you have lost the key pair and need to make a new one then you can use the [AWS console to make a new key pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html) and reference that within your terraform code.
 
@@ -96,8 +61,7 @@ Once you are happy with the code you have written for your instances, go ahead a
 
 Log in to the AWS console to make sure you can see your two EC2 instances and check that you can SSH into them before moving on.
 
-
-## 4. Deploying the application
+## 3. Deploying the application
 
 Once your instances are ready, SSH into one of them in order for us to set it up and deploy the API on to it.
 
@@ -147,7 +111,7 @@ http://ec2-18-170-107-81.eu-west-2.compute.amazonaws.com:3000/
 
 🎉 🥳 Ok...so far so good....we can test the API and we have got it working!!
 
-## 5. Target group
+## 4. Target group
 
 Now you have two servers running the API you can start work on load balancing between them.
 
@@ -171,7 +135,7 @@ Use the instances you created within the [app_servers](./modules/app_servers) mo
 
 Once you are happy with the code you have written for your target group, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
 
-## 6. Load balancer setup
+## 5. Load balancer setup
 
 Amazing work getting this far!!! Seriously well done! 🎉
 
@@ -198,7 +162,7 @@ The listener should be setup with the following properties:
 
 Once you are happy with the code you have written for your load balancer setup, go ahead and `apply` this using Terraform. You should see Terraform inform you that it has made new resources.
 
-## 7. Time for testing
+## 6. Time for testing
 
 Once your load balancer is created, on your browser, open up the AWS console and through to the Load Balancers section.
 
@@ -246,9 +210,8 @@ Cloud engineering jobs here we come!!
 
 Now give yourself a pat on the back, have a relax and when ready work through the submission process below before you tear things down.
 
-
 ## Tearing things down
 
-In order to remove the infrastructure we have created, follow these steps in order
+You can use terraform to remove the infrastructure you have created by running:
 
-* Run `terraform destroy` to remove all your provisioned infrastructure
+`terraform destroy`
