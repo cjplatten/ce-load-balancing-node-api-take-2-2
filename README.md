@@ -219,6 +219,7 @@ Create a yourself brand new git repository to store your terraform code and writ
 * Create a VPC for your new application services
 * Any required security groups
 * EC2 instances running different applications
+* For now just keep it to one EC2 instance per application to save on costs
 * Different target groups for the different services
 * An [AWS load balancer that uses path based routing](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) to route to different target groups
 
