@@ -22,6 +22,8 @@ You can view the code for API within the [app](./app/) directory where you will 
 
 ## 1. Applying the current infrastructure
 
+Make sure to commit and push your code after each step in these instructions.
+
 Explore the existing terraform files within this repository to familiarise yourself with the structure.
 
 You will see that there is already existing code to create a brand new VPC, associated subnets and routing.
