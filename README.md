@@ -63,11 +63,9 @@ Log in to the AWS console to make sure you can see your two EC2 instances and ch
 
 ## 3. Deploying the application
 
-Once your instances are ready, SSH into one of them in order for us to set it up and deploy the API on to it.
+Once your instances are ready, SSH into one of them in order to set it up and deploy the API on to it.
 
 **🗒️ NOTE:** You should repeat these steps for both EC2 instances
-
-It's time to get the application running on this instance
 
 Once you are logged in you should:
 
@@ -79,7 +77,7 @@ Once you are logged in you should:
  
 At this stage its important to verify that you have the application running successfully before moving on.
 
-Whilst the app is running on your terminal, open up the AWS console in the browser and navigate to the EC2 section.
+Open up the AWS console in the browser and navigate to the EC2 section.
 
 Click on your EC2 instance and you should see the **Instance summary**
 
@@ -209,6 +207,27 @@ curl -X GET api-load-balancer-1270613838.eu-west-2.elb.amazonaws.com/learners
 Cloud engineering jobs here we come!!
 
 Now give yourself a pat on the back, have a relax and when ready work through the submission process below before you tear things down.
+
+## 7. Putting it into practice
+
+Using what you have learnt, we'd like you to get multiple microservices deployed behind a load balancer.
+
+The microservices are for a home energy management system ⚡️. You can send requests to turn lights on/off, requests for heating on/off and even check the status of home energy.
+
+Create a yourself brand new git repository to store your terraform code and write the code to:
+
+* Create a VPC for your new application services
+* Any required security groups
+* EC2 instances running different applications
+* Different target groups for the different services
+* An [AWS load balancer that uses path based routing](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html) to route to different target groups
+
+Each of the various applications can be found on the link below:
+
+* EMILY UPDATE GITHUB LINKS
+* EMILY UPDATE GITHUB LINKS
+* EMILY UPDATE GITHUB LINKS
+
 
 ## Tearing things down
 
