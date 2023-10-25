@@ -225,9 +225,9 @@ Create a yourself brand new git repository to store your terraform code and writ
 
 Each of the various applications can be found on the link below:
 
-* EMILY UPDATE GITHUB LINKS
-* EMILY UPDATE GITHUB LINKS
-* EMILY UPDATE GITHUB LINKS
+* https://github.com/northcoders/ce-smart-home-heating
+* https://github.com/northcoders/ce-smart-home-lights
+* https://github.com/northcoders/ce-smart-home-status
 
 
 ## Tearing things down
