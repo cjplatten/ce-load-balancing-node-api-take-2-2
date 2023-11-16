@@ -1,5 +1,15 @@
 # Load balancing
 
+## Summary
+
+## Prerequisites
+
+You should both have Terraform installed on your machine and it should be configured to access your AWS account in order to create infrastructure.
+
+You should also be familiar with SSH'ing into EC2 servers on Amazon AWS as part of the sprint will require that.
+
+## Overview
+
 Imagine you have deployed an application - it is currently running on one EC2 instance. As per [Murphy's Law](https://en.wikipedia.org/wiki/Murphy%27s_law) we know that something ~~might~~ will go wrong at some point. Running an application where there is only one of them is great for costs but maybe not say great for reliability because you have a [SPOF](https://en.wikipedia.org/wiki/Single_point_of_failure)
 
 One tactic a cloud engineer might employ to combat this type of risk is [Load Balancing](https://aws.amazon.com/what-is/load-balancing/).
@@ -17,6 +27,10 @@ You can view the code for API within the [app](./app/) directory where you will 
 * [package.json](./app/package.json) - The file contains the dependencies for the application and the scripts for starting the API.
 
 🗒️ **NOTE:** As part of this exercise you are safe to assume that the code has been tested and fully works so you do not need to edit any of the code within the app.
+
+## Repo
+
+You can find the repository [here](https://github.com/northcoders/ce-load-balancing-node-api)
 
 ## Instructions
 
@@ -235,3 +249,11 @@ Each of the various applications can be found on the link below:
 You can use terraform to remove the infrastructure you have created by running:
 
 `terraform destroy`
+
+## Conclusion
+
+When designing systems you will often find yourself looking to spot single points of failure within them. If you have one server running a job and then that server fails then you might be without service.
+
+Load balancing between servers is one technique to not only make your infrastructure more resillient but also spread out the load and potentially increase performance for your customers.
+
+Of course, all of these decisions when to scale or introduce more infrastructure will always be balanced against cost. It costs more money to have multiple servers and a load balancer so when designing systems you will often balance availability versus cost.
