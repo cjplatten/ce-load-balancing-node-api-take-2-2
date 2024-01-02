@@ -13,3 +13,13 @@ module "security" {
 
   vpc_id = module.networking.vpc_id
 }
+
+module "app_servers" {
+  source = "./modules/app_servers"
+
+  security_group = module.security.security_group_id
+
+  vpc_id = module.networking.vpc_id
+
+  subnet_ids = module.networking.public_subnets
+}
