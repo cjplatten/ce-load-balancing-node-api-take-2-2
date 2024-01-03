@@ -30,4 +30,8 @@ module "load_balancing" {
   vpc_id = module.networking.vpc_id
 
   target_ids = module.app_servers.instance_ids
+
+  security_group_id = module.security.security_group_id
+
+  subnet_ids = module.networking.public_subnets
 }
