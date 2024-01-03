@@ -23,3 +23,11 @@ module "app_servers" {
 
   subnet_ids = module.networking.public_subnets
 }
+
+module "load_balancing" {
+  source = "./modules/load_balancing"
+
+  vpc_id = module.networking.vpc_id
+
+  target_ids = module.app_servers.instance_ids
+}
